@@ -60,3 +60,21 @@ For example on an AWS instance the api returns a lot of `429 Too Many Requests` 
 While the same file uploads without any errors from a Linode instance.
 Gdrive has retry logic built in for these errors, but it can slow down the upload significantly.
 To check if you are affected by these errors you can run the `upload` command with these flags: `--print-chunk-errors` `--print-chunk-info`.
+
+### Shell Completions
+
+gdrive has built-in support for generating shell completions.
+
+#### Fish
+
+```bash
+gdrive complete --shell fish --register ~/.config/fish/completions/
+```
+
+#### Bash
+
+```bash
+gdrive complete --shell bash --register ~/.local/share/bash-completion/completions/
+```
+
+Completions will be available in new shell sessions.

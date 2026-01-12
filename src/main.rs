@@ -8,7 +8,8 @@ pub mod hub;
 pub mod permissions;
 pub mod version;
 
-use clap::{Parser, Subcommand};
+use clap::{CommandFactory, Parser, Subcommand};
+use clap_complete::dynamic::shells::CompleteCommand;
 use common::delegate::ChunkSize;
 use common::permission;
 use files::list::ListQuery;
@@ -55,6 +56,10 @@ enum Command {
 
     /// Print version information
     Version,
+
+    /// Generate shell completions
+    #[command(flatten)]
+    Complete(CompleteCommand),
 }
 
 #[derive(Subcommand)]
@@ -717,6 +722,13 @@ async fn main() {
         Command::Version => {
             // fmt
             version::version()
+        }
+
+        #[allow(unreachable_code)]
+        Command::Complete(complete_cmd) => {
+            // fmt
+            let mut cmd = Cli::command();
+            complete_cmd.complete(&mut cmd);
         }
     }
 }
